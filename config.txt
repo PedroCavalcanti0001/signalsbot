@@ -1,0 +1,22 @@
+#Usuario e senha do iq option
+email: pedroeugeniocavalcanti@gmail.com
+password: PEdro2014
+
+#Porcentagem da banca na qual o bot irá parar caso alcance
+maxwin: 5
+
+#Porcentagem da banca na qual o bot irá operar
+operatingpercentage: 2
+
+#usar PRACTIVE OU REAL
+mode: PRACTICE
+
+
+
+
+#O multiplicador em relação ao valor da primeira operação
+galefactor: 2.4
+
+
+
+
