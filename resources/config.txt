@@ -1,0 +1,32 @@
+#Usuario e senha do iq option
+email: pedroeugeniocavalcanti@gmail.com
+password: PEdro2014
+
+#Porcentagem da banca na qual o bot irá parar caso alcance
+maxwin: 5
+
+#Porcentagem da banca na qual o bot irá operar
+operatingpercentage: 2
+
+#usar PRACTIVE OU REAL
+mode: PRACTICE
+
+#Escolher se quer operar em DIGITAL ou BINARY
+options: BINARY
+
+#usar SIM para não operar contra a tendencia, usar NAO para não respeitar
+respecttrend: SIM
+
+#Atraso em segundos para realizar as operações
+#Exemplo se colocar 1 o bot irá fazer a operação 1 segundo antes pra corrigir o atraso em relação a iq option
+delay: 2
+
+#O multiplicador em relação ao valor da primeira operação
+galefactor: 2.0
+#Quantidade maxima de gales
+galemax: 2
+
+
+
+
+
