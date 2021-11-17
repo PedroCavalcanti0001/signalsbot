@@ -1,11 +1,16 @@
+import asyncio
+import re
+from datetime import timedelta, datetime
 from pathlib import Path
 
-from telethon import TelegramClient, events, sync
-from datetime import timedelta, datetime
+from colorama import Fore
+from telethon import TelegramClient
 from telethon import events
-import asyncio, multiprocessing, threading, re
 
 loop = asyncio.get_event_loop()
+api_id = 17800567
+api_hash = 'e801e094f0aa1edce04c1ab22565bbb0'
+client = TelegramClient('Miro', api_id, api_hash, sequential_updates=False)
 
 
 # Retorna sim se o tempo atual for maior que o tempo passado
@@ -37,16 +42,17 @@ def parse_sinaisconsitente_(self):
             lines.append(formmated)
     return lines
 
+
 def read_sinaisconsistente_channel():
+    # -1001471304586
     base_path = Path(__file__).parent
     file_path = (base_path / "../resources/signals.txt").resolve()
-    api_id = 17800567
-    api_hash = 'e801e094f0aa1edce04c1ab22565bbb0'
-    client = TelegramClient('Miro', api_id, api_hash, sequential_updates=False)
-    channel2 = client.get_input_entity(-747797582)
-    print("iniciando")
 
-    @client.on(events.NewMessage(chats=channel2, incoming=False))
+    print(Fore.GREEN + "* Iniciando catalogador de sinais ‘sinais consistente’ - telegram bot." + Fore.RESET)
+
+    channel= client.get_entity(-747797582)
+    print(channel)
+    @client.on(events.NewMessage(chats=channel, incoming=False))
     async def callback(event):
         message = event.message
         date = message.date
@@ -90,24 +96,23 @@ def parse_tigersfree_signals(self):
             formmated = parity + "," + datetime.strftime("%d:%m:%Y:%I:%M") + "," + str(
                 timeframe) + ",1," + action
             lines.append(formmated)
-    return lines
 
+    return lines
 
 def read_signalsfree_channel():
     base_path = Path(__file__).parent
     file_path = (base_path / "../resources/signals.txt").resolve()
     api_id = 17800567
     api_hash = 'e801e094f0aa1edce04c1ab22565bbb0'
-    #-1001188178371
+    # -1001188178371
     client = TelegramClient('Miro', api_id, api_hash, sequential_updates=False)
     channel2 = client.get_input_entity(-747797582)
     print("Iniciando Telegram - bot")
 
     @client.on(events.NewMessage(chats=channel2, incoming=False))
     async def callback(event):
-        message = event.message
-        date = message.date
-        lines = message.message.splitlines()
+        message = event.original_update.message.message
+        lines = message.splitlines()
         newLines = parse_tigersfree_signals(lines)
         if len(newLines) > 0:
             print("aqui")
@@ -125,4 +130,18 @@ def read_signalsfree_channel():
 
     client.start()
     client.run_until_disconnected()
+
+
+def test():
+    @client.on(events.NewMessage(chats=client.get_entity(-747797582), incoming=False))
+    async def callback(event):
+        print(event)
+        message = event.original_update.message.message
+        print(message)
+        print("----")
+    client.start()
+    client.run_until_disconnected()
+
+def start_telegram_bot():
+    read_sinaisconsistente_channel()
 

@@ -12,7 +12,7 @@ operatingpercentage: 2
 mode: PRACTICE
 
 #Escolher se quer operar em DIGITAL ou BINARY
-options: BINARY
+options: DIGITAL
 
 #usar SIM para não operar contra a tendencia, usar NAO para não respeitar
 respecttrend: SIM

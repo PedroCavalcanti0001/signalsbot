@@ -1,5 +1,5 @@
-import multiprocessing
-
-from src.telegram_bot import read_signalsfree_channel
-
-multiprocessing.Process(target=read_signalsfree_channel, args=(3333,)).start()
+from colorama import init, Fore, Back                    
+                    
+totalEarnings=50
+color=Fore.GREEN if totalEarnings > 0 else Fore.RED
+print(Fore.BLUE + "\nLucro atual:",color + str(round(totalEarnings, 2)), Fore.RESET)
