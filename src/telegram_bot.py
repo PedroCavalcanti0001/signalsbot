@@ -1,5 +1,7 @@
 import asyncio
+import multiprocessing
 import re
+import threading
 from datetime import timedelta, datetime
 from pathlib import Path
 
@@ -43,19 +45,20 @@ def parse_sinaisconsitente_(self):
     return lines
 
 
-def read_sinaisconsistente_channel():
+async def read_sinaisconsistente_channel():
     # -1001471304586
+    # -747797582
     base_path = Path(__file__).parent
     file_path = (base_path / "../resources/signals.txt").resolve()
 
     print(Fore.GREEN + "* Iniciando catalogador de sinais ‘sinais consistente’ - telegram bot." + Fore.RESET)
 
-    channel= client.get_entity(-747797582)
+    channel = await client.get_entity(-747797582)
     print(channel)
+
     @client.on(events.NewMessage(chats=channel, incoming=False))
     async def callback(event):
         message = event.message
-        date = message.date
         lines = message.message.splitlines()
         newLines = parse_sinaisconsitente_(lines)
         if len(newLines) > 0:
@@ -71,9 +74,11 @@ def read_sinaisconsistente_channel():
                     writefile.write(line + '\n')
             readfile.close()
             writefile.close()
+    await client.start()
+    await client.run_until_disconnected()
 
-    client.start()
-    client.run_until_disconnected()
+
+
 
 def parse_tigersfree_signals(self):
     lines = []
@@ -99,14 +104,15 @@ def parse_tigersfree_signals(self):
 
     return lines
 
-def read_signalsfree_channel():
+
+async def read_signalsfree_channel():
     base_path = Path(__file__).parent
     file_path = (base_path / "../resources/signals.txt").resolve()
     api_id = 17800567
     api_hash = 'e801e094f0aa1edce04c1ab22565bbb0'
     # -1001188178371
     client = TelegramClient('Miro', api_id, api_hash, sequential_updates=False)
-    channel2 = client.get_input_entity(-747797582)
+    channel2 = await client.get_input_entity(-747797582)
     print("Iniciando Telegram - bot")
 
     @client.on(events.NewMessage(chats=channel2, incoming=False))
@@ -122,7 +128,6 @@ def read_signalsfree_channel():
             newLines.insert(0, "#SINAIS CAPTURADOS DO TELEGRAM 'Tigers Sinais Free'!")
             for line in newLines:
                 if not readlines.__contains__(line):
-                    print(line)
                     writefile.seek(0)
                     writefile.write(line + '\n')
             readfile.close()
@@ -132,16 +137,9 @@ def read_signalsfree_channel():
     client.run_until_disconnected()
 
 
-def test():
-    @client.on(events.NewMessage(chats=client.get_entity(-747797582), incoming=False))
-    async def callback(event):
-        print(event)
-        message = event.original_update.message.message
-        print(message)
-        print("----")
-    client.start()
-    client.run_until_disconnected()
+async def main():
+    await read_sinaisconsistente_channel()
 
-def start_telegram_bot():
-    read_sinaisconsistente_channel()
-
+if __name__ == "__main__":
+    with client:
+        client.loop.run_until_complete(main())

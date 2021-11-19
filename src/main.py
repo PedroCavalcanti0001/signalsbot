@@ -1,16 +1,16 @@
-from multiprocessing import Process
+import asyncio
+import multiprocessing
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
 from src.signals_core import start_signals_core
 from src.telegram_bot import start_telegram_bot
 
 
-def start():
-    p1 = Process(target=start_signals_core, args=())
-    p2 = Process(target=start_telegram_bot, args=())
-    p1.start()
-    p2.start()
-    p1.join()
-    p2.join()
+async def main():
+    executor = ThreadPoolExecutor(max_workers=2)
+    executor.submit(start_telegram_bot())
+    executor.submit(start_signals_core())
 
-if __name__ == '__main__':
-    start()
+
+asyncio.run(main())

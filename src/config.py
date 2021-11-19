@@ -32,4 +32,8 @@ class Config:
                     config["galemax"] = split[1].strip()
                 elif line.startswith("delay"):
                     config["delay"] = split[1].strip()
+                elif line.startswith("strategy"):
+                    config["strategy"] = split[1].strip()
+                elif line.startswith("doublefactor"):
+                    config["doublefactor"] = split[1].strip()
         return config
