@@ -1,36 +1,40 @@
 #Usuario e senha do iq option
 email: pedroeugeniocavalcanti@gmail.com
-password: PEdro2014
+password: qwertyzone_2014
 
-#Porcentagem da banca na qual o bot irá parar caso alcance
-maxwin: 2
+#Porcentagem da banca na qual o bot irÃ¡ parar caso alcance
+maxwin: 10.0
 
-#Porcentagem da banca na qual o bot irá operar
+#Porcentagem da banca na qual o bot irÃ¡ parar caso alcance
+maxloss: 30.0
+
+#Porcentagem da banca na qual o bot irÃ¡ operar
 operatingpercentage: 2
 
-#usar PRACTIVE OU REAL
+#usar PRACTICE OU REAL
 mode: PRACTICE
 
 #Escolher se quer operar em DIGITAL ou BINARY
-options: BINARY
+options: DIGITAL
 
-#usar SIM para não operar contra a tendencia, usar NAO para não respeitar
+#usar SIM para nÃ£o operar contra a tendencia, usar NAO para nÃ£o respeitar
 respecttrend: NAO
 
-#Atraso em segundos para realizar as operações
-#Exemplo se colocar 1 o bot irá fazer a operação 1 segundo antes pra corrigir o atraso em relação a iq option
-delay: 5
+#Atraso em segundos para realizar as operaÃ§Ãµes
+#Exemplo se colocar 1 o bot irÃ¡ fazer a operaÃ§Ã£o 1 segundo antes pra corrigir o atraso em relaÃ§Ã£o a iq option
+delay: 0
 
 
-#Escolher estrategias para recuperação de LOSS
-#Caso escolha GALE o bot operará em GALE, caso escolha DOBROOUNADA o bot adicionará o valor da entrada com LOSS na proxima entrada!
+#Escolher estrategias para recuperaÃ§Ã£o de LOSS
+#Caso escolha GALE o bot operarÃ¡ em GALE, caso escolha DOBROOUNADA o bot adicionarÃ¡ o valor da entrada com LOSS na proxima entrada!
 strategy: DOBROOUNADA
 
-#Isso é usado na estrategia DOBROOUNADA ele multiplica o valor do ultimo LOSS por esse fator inserido abaixo
-#Exemplo se o LOSS for de 10 reais ele somará 10 x 1.1 ao valor da proxima entrada
-doublefactor: 1.5
+#Isso Ã© usado na estrategia DOBROOUNADA ele multiplica o valor do ultimo LOSS por esse fator inserido abaixo
+#Exemplo se o LOSS for de 10 reais ele somarÃ¡ 10 x 1.1 ao valor da proxima entrada
+doublefactor: 1.2
+doublelimit: 2
 
-#O multiplicador em relação ao valor da primeira operação
+#O multiplicador em relaÃ§Ã£o ao valor da primeira operaÃ§Ã£o
 galefactor: 2.0
 #Quantidade maxima de gales
 galemax: 2

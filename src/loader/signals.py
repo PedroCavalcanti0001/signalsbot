@@ -8,7 +8,7 @@ class Signals:
     def load():
         signals = []
         base_path = Path(__file__).parent
-        file_path = (base_path / "../resources/signals.txt").resolve()
+        file_path = (base_path / "../../resources/signals.txt").resolve()
         with open(file_path, encoding='utf8') as signalsFile:
             lines = signalsFile.readlines()
             for line in lines:

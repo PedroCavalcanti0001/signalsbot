@@ -7,7 +7,7 @@ class Config:
     def load_config():
         config = {}
         base_path = Path(__file__).parent
-        file_path = (base_path / "../resources/config.txt").resolve()
+        file_path = (base_path / "../../resources/config.txt").resolve()
         with open(file_path, encoding='utf8') as configFile:
             allLines = configFile.readlines()
             for line in allLines:
@@ -18,6 +18,8 @@ class Config:
                     config["password"] = split[1].strip()
                 elif line.startswith("maxwin"):
                     config["maxwin"] = split[1].strip()
+                elif line.startswith("maxloss"):
+                    config["maxloss"] = split[1].strip()
                 elif line.startswith("operatingpercentage"):
                     config["operatingpercentage"] = split[1].strip()
                 elif line.startswith("mode"):
@@ -36,4 +38,6 @@ class Config:
                     config["strategy"] = split[1].strip()
                 elif line.startswith("doublefactor"):
                     config["doublefactor"] = split[1].strip()
+                elif line.startswith("doublelimit"):
+                    config["doublelimit"] = split[1].strip()
         return config

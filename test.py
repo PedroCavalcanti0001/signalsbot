@@ -1,5 +1,13 @@
-from colorama import init, Fore, Back                    
-                    
-totalEarnings=50
-color=Fore.GREEN if totalEarnings > 0 else Fore.RED
-print(Fore.BLUE + "\nLucro atual:",color + str(round(totalEarnings, 2)), Fore.RESET)
+from datetime import datetime
+
+
+
+
+def timestamp_to_date(timestamp):
+    timestamp = timestamp / 1000
+    dt= datetime.fromtimestamp(timestamp)
+    print(dt)
+    return dt
+
+
+timestamp_to_date(1637892515000)

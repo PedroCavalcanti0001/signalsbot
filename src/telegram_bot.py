@@ -32,33 +32,39 @@ def parse_sinaisconsitente_(self):
     if str(self[0].strip().lower()).startswith("Sinais convertidos START BOT".lower()):
         operations = list(filter(lambda x: x.__contains__("PUT") or x.__contains__("CALL"), self))
         for operation in operations:
-            split = operation.split(";")
-            parity = split[0]
-            time = split[2]
-            action = split[3]
-            timeframe = split[4].strip()
-            datetime = get_datetime(time)
-
-            formmated = parity + "," + datetime.strftime("%d:%m:%Y:%I:%M") + "," + str(
-                timeframe) + ",2," + action
-            lines.append(formmated)
+            try:
+                split = operation.split(";")
+                parity = split[0]
+                time = split[2]
+                action = split[3]
+                timeframe = split[4].strip()
+                datetime = get_datetime(time)
+                formmated = parity + "," + datetime.strftime("%d:%m:%Y:%H:%M") + "," + str(
+                    timeframe) + ",2," + action
+                lines.append(formmated)
+            except Exception as e:
+                print(e)
     return lines
 
 
 async def read_sinaisconsistente_channel():
-    # -1001471304586
-    # -747797582
+    # -1001471304586 SINAIS CONSISTENTE
+    # -747797582 TESTE
+    # -1001234997415 chat consistente vip
     base_path = Path(__file__).parent
     file_path = (base_path / "../resources/signals.txt").resolve()
-
+    for dia in await client.get_dialogs():
+        print(dia.title, dia.id)
+    print("-----")
     print(Fore.GREEN + "* Iniciando catalogador de sinais ‘sinais consistente’ - telegram bot." + Fore.RESET)
 
-    channel = await client.get_entity(-747797582)
-    print(channel)
+    channel = await client.get_entity(-1001471304586)
+   # print(channel)
 
-    @client.on(events.NewMessage(chats=channel, incoming=False))
+    @client.on(events.NewMessage(chats=channel))
     async def callback(event):
         message = event.message
+        print("message",message)
         lines = message.message.splitlines()
         newLines = parse_sinaisconsitente_(lines)
         if len(newLines) > 0:
